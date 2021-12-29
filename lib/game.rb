@@ -3,7 +3,10 @@
 class Game 
 
   def initialize
-    # initiate empty board
+    @rows = [1, 2, 3, 4, 5, 6, 7, 8]
+    @columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+    @positions = []
+    @rows.each{ |row| @columns.each{ |column| @positions << (row.to_s << column.to_s) }}
   end
 
   def start_board
