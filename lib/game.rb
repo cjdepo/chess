@@ -77,12 +77,11 @@ class Game
   
   def list_moves(piece_position)
     piece = @board[piece_position]
-    unless piece == nil
-      p piece.possible_moves
+    if piece == nil
+      return nil
+    else
+      piece.possible_moves
     end
-    # calls for the piece to give a list of it's possible moves
-    # checks this move against available board positions
-    # return list of what's left
   end
   
   def move(piece_position, end_position)
