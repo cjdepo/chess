@@ -8,13 +8,14 @@
 class Knight
   attr_reader :moves, :position
 
-  def initialize(position_arr)
+  def initialize(position_arr, board)
     @position = position_arr
     @moves = [[1,2],[2,1],[-1,2],[2,-1],[1,-2],[-2,-1],[-2,1],[-1,-2]]
+    @board = board
   end
 
   #haven't tested this yet
-  def possible_moves(board)
+  def possible_moves
     possible_positions = @moves.map{|move| move.map.with_index{|v, i| v + @position[i]}}
     possible_positions.map! do |pos|
       if pos.any?{ |v| v > 8 || v < 1 }
@@ -23,21 +24,15 @@ class Knight
         pos
       end
     end.compact!
-    possible_positions.map! do |pos|
-      if board[pos] != nil
-        nil
-      else
-        pos
-      end
-    end.compact!
   end
 
-  def move(target_arr)
-    possible_targets = self.possible_moves
-    if possible_targets.include?(target_arr)
-      @position = target_arr
+  def change_position(target_arr)
+    possible_targets = possible_moves
+    unless possible_targets.include?(target_arr)
+      puts "illegal move"
+      return nil
     else
-      puts "Illegal move"
+      @position = target_arr
     end
   end
 end

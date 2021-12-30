@@ -59,7 +59,6 @@ class Game
 
   def print_board
     rows = get_rows(@board)
-    p rows
     puts "          -------------------------"
     rows.each do |row|
       str = row.reduce("          |") do |str, row|
@@ -72,8 +71,8 @@ class Game
 
   def start_board
     # generate and load pieces in starting position
-    @board['1b'] = Knight.new(position_to_arr('1b'))
-    @board['1g'] = Knight.new(position_to_arr('1g'))
+    @board['1b'] = Knight.new(position_to_arr('1b'), @board)
+    @board['1g'] = Knight.new(position_to_arr('1g'), @board)
   end
   
   def list_moves(piece_position)
@@ -81,8 +80,17 @@ class Game
     # checks this move against available board positions
     # return list of what's left
   end
-
+  
   def move(piece_position, end_position)
+    if @board[end_position] == nil
+      piece = @board[piece_position]
+      if piece.change_position(position_to_arr(end_position))
+        @board[end_position] = piece
+        @board[piece_position] = nil
+      end
+    else
+      puts "space taken"
+    end
     # positions = list_moves(piece_position)
     # if end_position is in positions
     # move the piece
@@ -90,4 +98,3 @@ class Game
   end
 
 end
-
