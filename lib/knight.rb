@@ -14,7 +14,6 @@ class Knight
     @board = board
   end
 
-  #haven't tested this yet
   def possible_moves
     possible_positions = @moves.map{|move| move.map.with_index{|v, i| v + @position[i]}}
     possible_positions.map! do |pos|
@@ -24,6 +23,7 @@ class Knight
         pos
       end
     end.compact!
+    possible_positions
   end
 
   def change_position(target_arr)
