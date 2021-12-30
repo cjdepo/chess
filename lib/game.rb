@@ -1,5 +1,5 @@
 # /lib/game
-
+require_relative 'knight'
 class Game
   attr_reader :board
 
@@ -72,6 +72,8 @@ class Game
 
   def start_board
     # generate and load pieces in starting position
+    @board['1b'] = Knight.new(position_to_arr('1b'))
+    @board['1g'] = Knight.new(position_to_arr('1g'))
   end
   
   def list_moves(piece_position)
