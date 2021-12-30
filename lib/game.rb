@@ -2,6 +2,7 @@
 
 class Game 
   attr_reader :board
+  
   def initialize
     @rows = [1, 2, 3, 4, 5, 6, 7, 8]
     @columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
@@ -10,8 +11,33 @@ class Game
     @board = @positions.reduce({}) { |board, position| board[position] = nil; board }
   end
 
+  def get_rows(board=@board)
+    i = 0
+    rows = []
+    row = []
+    @positions.each do |position|
+      if i >= 8
+        rows << row
+        row = []
+        i = 0
+      end
+      i += 1
+      row << board[position]
+    end
+    rows
+  end
+
   def print_board
-    # print out board as it exists
+    rows = get_rows(@board)
+    p rows
+    puts "          -------------------------"
+    rows.each do |row|
+      str = row.reduce("          |") do |str, row|
+        str += " #{row} |"
+      end
+      puts str
+      puts "          -------------------------"
+    end
   end
 
   def start_board
