@@ -20,15 +20,6 @@ class Knight
     end.compact!
     possible_positions
   end
-
-
-
-    # convert position to [x, y] notation
-    # add each moves to xy
-    # filter out side of board values
-    # return positions
-
-
 end
 
 knight = Knight.new('e3')
