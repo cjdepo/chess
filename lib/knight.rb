@@ -2,16 +2,16 @@
 
 ## The Knight piece can move forward, backward, left or right two squares and must then move one square in either perpendicular direction.
 ## The Knight piece can only move to one of up to eight positions on the board.
-# The Knight piece can move to any position not already inhabited by another piece of the same color.
+## The Knight piece can move to any position not already inhabited by another piece of the same color.
 ## The Knight piece can skip over any other pieces to reach its destination position.
 
 class Knight
   attr_reader :moves, :position
 
-  def initialize(position_arr, board)
+  def initialize(position_arr, color)
     @position = position_arr
     @moves = [[1,2],[2,1],[-1,2],[2,-1],[1,-2],[-2,-1],[-2,1],[-1,-2]]
-    @board = board
+    @color = color
   end
 
   def possible_moves

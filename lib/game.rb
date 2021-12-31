@@ -16,13 +16,15 @@ class Game
     rows = []
     row = []
     @positions.each do |position|
+      i += 1
       if i >= 8
+        row << board[position]
         rows << row
         row = []
         i = 0
+      else 
+        row << board[position]
       end
-      i += 1
-      row << board[position]
     end
     rows
   end
@@ -70,9 +72,10 @@ class Game
   end
 
   def start_board
-    # generate and load pieces in starting position
-    @board['1b'] = Knight.new(position_to_arr('1b'), @board)
-    @board['1g'] = Knight.new(position_to_arr('1g'), @board)
+    @board['1b'] = Knight.new(position_to_arr('1b'), 'black')
+    @board['1g'] = Knight.new(position_to_arr('1g'), 'black')
+    @board['8b'] = Knight.new(position_to_arr('8b'), 'white')
+    @board['8g'] = Knight.new(position_to_arr('8g'), 'white')
   end
   
   def list_moves(piece_position)
@@ -85,15 +88,24 @@ class Game
   end
   
   def move(piece_position, end_position)
-    if @board[end_position] == nil
-      piece = @board[piece_position]
+    piece = @board[piece_position]
+    target = @board[end_position]
+    if target == nil
       if piece.change_position(position_to_arr(end_position))
         @board[end_position] = piece
         @board[piece_position] = nil
       end
-    else
+    elsif target.color != piece.color
+      if piece.change_position(position_to_arr(end_position))
+        @board[end_position] = piece
+        @board[piece_position] = nil
+      end
+    elsif target.color == piece.color
       puts "space taken"
     end
   end
+    
 
+
+      
 end
