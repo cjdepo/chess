@@ -3,13 +3,19 @@ require_relative '../lib/knight'
 
 describe Knight do
   describe '#possible_moves' do
-    subject(:knight) { described_class.new([4, 4], 'black') }
-    it 'returns 8 moves when near center of board' do
-      expect(knight.possible_moves).to return([[5,6],[6,5],[3,6],[6,3],[5,2],[2,3],[2,5],[3,2])
+    context 'when position near center of board' do
+      subject(:knight) { described_class.new([4, 4], 'black') }
+      it 'returns 8 moves' do
+        moves = knight.possible_moves
+        expect(moves).to eq([[5,6],[6,5],[3,6],[6,3],[5,2],[2,3],[2,5],[3,2]])
+      end
     end
-    subject(:knight) { described_class.new([1,2],'black') }
-    it 'returns moves only on board when near edge of board' do
-      expect(knight.possible_moves).to return([[3,4],[4,3],[4,1]])
+    context 'when position near edge of board' do
+      subject(:knight) { described_class.new([1,2],'black') }
+      it 'returns moves only on board' do
+        moves = knight.possible_moves
+        expect(moves).to include([2,4],[3,3],[3,1])
+      end
     end
   end
 end 
