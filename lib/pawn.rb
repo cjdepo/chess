@@ -24,11 +24,21 @@ class Pawn
     else
       moves = [[0,1]]
     end
-    # if @board[]
-    # if front left:
-    # moves << [-1, 1]
-    # if front right:
-    # moves << [1, 1]
+    front_right_arr = [1,1].map.with_index{ |v, i| v + position[i] }
+    front_right = @board[arr_to_position(front_right_arr)]
+    unless front_right == nil
+      unless front_right.color == @color
+        moves << [1, 1]
+      end
+    end
+    front_left_arr = [-1,1].map.with_index{ |v, i| v + position[i] }
+    front_left = @board[arr_to_position(front_left_arr)]
+    unless front_left = nil
+      unless front_left.color == @color
+        moves << [-1, 1]
+      end
+    end
+    moves
   end
 
   def change_position(target_arr)
