@@ -8,6 +8,7 @@ require_relative '../mod/board_math'
 # Once a pawn chess piece reaches the other side of the chess board, the player may "trade" the pawn in for any other chess piece if they choose, except another king.
 
 class Pawn
+  include BoardMath
   attr_reader :moves
 
   def initialize(board, position_arr, color)

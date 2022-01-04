@@ -3,6 +3,7 @@ require_relative 'knight'
 require_relative '../mod/board_math'
 
 class Game
+  include BoardMath
   attr_reader :board
 
   def initialize
