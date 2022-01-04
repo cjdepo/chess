@@ -1,6 +1,6 @@
 # mod/board_math
 
-module BoardMath
+module BoardMath 
   def position_to_arr(position)
     rows = [1, 2, 3, 4, 5, 6, 7, 8]
     columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
@@ -34,4 +34,9 @@ module BoardMath
     end
     position
   end
+
+  def add_moves_to_position(moves, position)
+    moves.map{|move| move.map.with_index{|xy, i| xy + position[i]}}
+  end
+
 end
