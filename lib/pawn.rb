@@ -1,5 +1,7 @@
 # lib/pawn
 
+require_relative '../mod/board_math'
+
 ## Pawn chess pieces can only directly forward one square, with two exceptions.
 # Pawns can move directly forward two squares on their first move only.
 # Pawns can move diagonally forward when capturing an opponent's chess piece.
@@ -8,7 +10,8 @@
 class Pawn
   attr_reader :moves
 
-  def initialize(position_arr, color)
+  def initialize(board, position_arr, color)
+    @board = board
     @position = position_arr
     @color = color
     @move_count = 0
@@ -20,7 +23,11 @@ class Pawn
     else
       moves = [[0,1]]
     end
-    # if enemy in front left or front right, can take space
+    # if @board[]
+    # if front left:
+    # moves << [-1, 1]
+    # if front right:
+    # moves << [1, 1]
   end
 
   def change_position(target_arr)

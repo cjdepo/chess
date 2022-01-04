@@ -1,5 +1,7 @@
 # /lib/game
 require_relative 'knight'
+require_relative '../mod/board_math'
+
 class Game
   attr_reader :board
 
@@ -27,36 +29,6 @@ class Game
       end
     end
     rows
-  end
-
-  def position_to_arr(position)
-    arr = []
-    @rows.each do |row|
-        if position[0] == row.to_s
-            arr[0] = row.to_i
-        end
-    end
-    @columns.each_with_index do |column, i|
-        if position[1] == column.to_s
-            arr[1] = i + 1
-        end
-    end
-    arr
-  end
-
-  def arr_to_position(arr)
-    position = ''
-    @rows.each do |row|
-        if arr[0] == row.to_i
-            position[0] = row.to_s
-        end
-    end
-    @columns.each_with_index do |column, i|
-        if arr[1] == i + 1
-            position[1] = column.to_s
-        end
-    end
-    position
   end
 
   def print_board
@@ -91,6 +63,7 @@ class Game
     piece = @board[piece_position]
     target = @board[end_position]
     if target == nil
+      #need to make this code better, 
       if piece.change_position(position_to_arr(end_position))
         @board[end_position] = piece
         @board[piece_position] = nil
