@@ -6,7 +6,7 @@
 ## The Knight piece can skip over any other pieces to reach its destination position.
 
 class Knight
-  attr_reader :moves, :position
+  attr_reader :moves, :position, :color
 
   def initialize(position_arr, color)
     @position = position_arr
