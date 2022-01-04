@@ -9,7 +9,7 @@ require_relative '../mod/board_math'
 
 class Pawn
   include BoardMath
-  attr_reader :moves
+  attr_reader :moves, :color
 
   def initialize(board, position_arr, color)
     @board = board
@@ -19,20 +19,32 @@ class Pawn
   end
 
   def possible_moves
-    if move_count == 0
+    if @move_count == 0
       moves = [[0,1],[0,2]]
     else
       moves = [[0,1]]
     end
-    # if @board[]
-    # if front left:
-    # moves << [-1, 1]
-    # if front right:
-    # moves << [1, 1]
+    front_right_arr = [1,1].map.with_index{ |v, i| v + @position[i] }
+    front_right = @board[arr_to_position(front_right_arr)]
+    unless front_right == nil
+      unless front_right.color == @color
+        moves << [1, 1]
+      end
+    end
+    front_left_arr = [-1,1].map.with_index{ |v, i| v + @position[i] }
+    front_left = @board[arr_to_position(front_left_arr)]
+    unless front_left == nil
+      unless front_left.color == @color
+        moves << [-1, 1]
+      end
+    end
+    possible_positions = add_moves_to_position
+    #needs merge
   end
 
   def change_position(target_arr)
     possible_targets = possible_moves
+    p possible_targets
     unless possible_targets.include?(target_arr)
       puts "illegal move"
       return nil

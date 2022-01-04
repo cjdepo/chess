@@ -1,5 +1,6 @@
 # /lib/game
 require_relative 'knight'
+require_relative 'pawn'
 require_relative '../mod/board_math'
 
 class Game
@@ -49,6 +50,22 @@ class Game
     @board['1g'] = Knight.new(position_to_arr('1g'), 'black')
     @board['8b'] = Knight.new(position_to_arr('8b'), 'white')
     @board['8g'] = Knight.new(position_to_arr('8g'), 'white')
+    @board['2a'] = Pawn.new(@board,position_to_arr('2a'), 'black')
+    @board['2b'] = Pawn.new(@board,position_to_arr('2b'), 'black')
+    @board['2c'] = Pawn.new(@board,position_to_arr('2c'), 'black')
+    @board['2d'] = Pawn.new(@board,position_to_arr('2d'), 'black')
+    @board['2e'] = Pawn.new(@board,position_to_arr('2e'), 'black')
+    @board['2f'] = Pawn.new(@board,position_to_arr('2f'), 'black')
+    @board['2g'] = Pawn.new(@board,position_to_arr('2g'), 'black')
+    @board['2h'] = Pawn.new(@board,position_to_arr('2h'), 'black')
+    @board['7a'] = Pawn.new(@board,position_to_arr('7a'), 'white')
+    @board['7b'] = Pawn.new(@board,position_to_arr('7b'), 'white')
+    @board['7c'] = Pawn.new(@board,position_to_arr('7c'), 'white')
+    @board['7d'] = Pawn.new(@board,position_to_arr('7d'), 'white')
+    @board['7e'] = Pawn.new(@board,position_to_arr('7e'), 'white')
+    @board['7f'] = Pawn.new(@board,position_to_arr('7f'), 'white')
+    @board['7g'] = Pawn.new(@board,position_to_arr('7g'), 'white')
+    @board['7h'] = Pawn.new(@board,position_to_arr('7h'), 'white')
   end
   
   def list_moves(piece_position)
