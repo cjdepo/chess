@@ -9,13 +9,18 @@ require_relative '../mod/board_math'
 
 class Pawn
   include BoardMath
-  attr_reader :moves, :color
+  attr_reader :moves, :color, :unicode
 
   def initialize(board, position_arr, color)
     @board = board
     @position = position_arr
-    @color = color
     @move_count = 0
+    @color = color
+    if @color == 'black'
+      @unicode = "\u265f"
+    elsif @color == 'white'
+      @unicode = "\u2659"
+    end
   end
 
   def possible_moves

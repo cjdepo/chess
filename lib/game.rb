@@ -35,13 +35,18 @@ class Game
 
   def print_board
     rows = get_rows(@board)
-    puts "          -------------------------"
+    puts "          ---------------------------------"
     rows.each do |row|
-      str = row.reduce("          |") do |str, row|
-        str += " #{row} |"
+      str = row.reduce("          |") do |str, pos|
+        if pos == nil
+          pos = "\u2004".encode('utf-8')
+        else
+          pos = pos.unicode.encode('utf-8')
+        end
+        str += " #{pos} |"
       end
       puts str
-      puts "          -------------------------"
+      puts "          ---------------------------------"
     end
   end
 

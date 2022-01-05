@@ -7,12 +7,17 @@ require_relative '../mod/board_math.rb'
 
 class Knight
   include BoardMath
-  attr_reader :moves, :position, :color
+  attr_reader :moves, :position, :color, :unicode
 
   def initialize(position_arr, color)
     @position = position_arr
     @moves = [[1,2],[2,1],[-1,2],[2,-1],[1,-2],[-2,-1],[-2,1],[-1,-2]]
     @color = color
+    if @color == 'black'
+      @unicode = "\u265e"
+    elsif @color == 'white'
+      @unicode = "\u2658"
+    end
   end
 
   def possible_moves
@@ -36,6 +41,7 @@ class Knight
       @position = target_arr
     end
   end
+
 end
 
 
