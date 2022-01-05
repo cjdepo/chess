@@ -1,5 +1,5 @@
 # lib/knight
-require_relative '../mod/board_math.rb'
+require_relative '../mod/board_math'
 ## The Knight piece can move forward, backward, left or right two squares and must then move one square in either perpendicular direction.
 ## The Knight piece can only move to one of up to eight positions on the board.
 ## The Knight piece can move to any position not already inhabited by another piece of the same color.
