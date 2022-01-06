@@ -1,23 +1,24 @@
-# lib/knight
+# lib/king
+
 require_relative '../mod/board_math'
 
-## The Knight piece can move forward, backward, left or right two squares and must then move one square in either perpendicular direction.
-## The Knight piece can only move to one of up to eight positions on the board.
-## The Knight piece can move to any position not already inhabited by another piece of the same color.
-## The Knight piece can skip over any other pieces to reach its destination position.
+## The king piece can move one single square in any direction.
+# The king cannot move onto a square that is currently occupied by a piece from its own team.
+# The king piece cannot move to any square that puts them into a "check" position.
+# The king piece can participate in a move known as "castling", where the piece can move up to three squares while exchanging places with a rook chess piece.
 
-class Knight
+class King
   include BoardMath
   attr_reader :moves, :position, :color, :unicode
 
   def initialize(position_arr, color)
     @position = position_arr
-    @moves = [[1,2],[2,1],[-1,2],[2,-1],[1,-2],[-2,-1],[-2,1],[-1,-2]]
+    @moves = [[1, 1], [0, 1], [-1, 1], [1, -1], [0, -1], [-1, -1], [1, 0], [-1, 0]]
     @color = color
     if @color == 'black'
-      @unicode = "\u265e"
+      @unicode = "\u265a"
     elsif @color == 'white'
-      @unicode = "\u2658"
+      @unicode = "\u2654"
     end
   end
 

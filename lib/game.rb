@@ -4,6 +4,7 @@ require_relative 'pawn'
 require_relative 'bishop'
 require_relative 'rook'
 require_relative 'queen'
+require_relative 'king'
 require_relative '../mod/board_math'
 
 class Game
@@ -84,6 +85,8 @@ class Game
     @board['8h'] = Rook.new(@board,position_to_arr('8h'), 'white')
     @board['1d'] = Queen.new(@board,position_to_arr('1d'), 'black')
     @board['8d'] = Queen.new(@board,position_to_arr('8d'), 'white')
+    @board['1e'] = King.new(position_to_arr('1e'), 'black')
+    @board['8e'] = King.new(position_to_arr('8e'), 'white')
   end
   
   def list_moves(piece_position)
