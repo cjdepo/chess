@@ -1,6 +1,7 @@
 # /lib/game
 require_relative 'knight'
 require_relative 'pawn'
+require_relative 'bishop'
 require_relative '../mod/board_math'
 
 class Game
@@ -71,6 +72,10 @@ class Game
     @board['7f'] = Pawn.new(@board,position_to_arr('7f'), 'white')
     @board['7g'] = Pawn.new(@board,position_to_arr('7g'), 'white')
     @board['7h'] = Pawn.new(@board,position_to_arr('7h'), 'white')
+    @board['1c'] = Bishop.new(@board,position_to_arr('1c'), 'black')
+    @board['1f'] = Bishop.new(@board,position_to_arr('1f'), 'black')
+    @board['8c'] = Bishop.new(@board,position_to_arr('8c'), 'white')
+    @board['8f'] = Bishop.new(@board,position_to_arr('8f'), 'white')
   end
   
   def list_moves(piece_position)
