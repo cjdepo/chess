@@ -11,7 +11,8 @@ class King
   include BoardMath
   attr_reader :moves, :position, :color, :unicode
 
-  def initialize(position_arr, color)
+  def initialize(board, position_arr, color)
+    @board = board
     @position = position_arr
     @moves = [[1, 1], [0, 1], [-1, 1], [1, -1], [0, -1], [-1, -1], [1, 0], [-1, 0]]
     @color = color
@@ -29,6 +30,17 @@ class King
         nil
       else
         pos
+      end
+    end.compact!
+    possible_positions.map! do |arr|
+      if @board[arr_to_position(arr)] != nil
+        if @board[arr_to_position(arr)].color == @color
+          nil
+        else
+          arr
+        end
+      else
+        arr
       end
     end.compact!
     possible_positions

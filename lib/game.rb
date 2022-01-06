@@ -55,10 +55,10 @@ class Game
   end
 
   def start_board
-    @board['1b'] = Knight.new(position_to_arr('1b'), 'black')
-    @board['1g'] = Knight.new(position_to_arr('1g'), 'black')
-    @board['8b'] = Knight.new(position_to_arr('8b'), 'white')
-    @board['8g'] = Knight.new(position_to_arr('8g'), 'white')
+    @board['1b'] = Knight.new(@board,position_to_arr('1b'), 'black')
+    @board['1g'] = Knight.new(@board,position_to_arr('1g'), 'black')
+    @board['8b'] = Knight.new(@board,position_to_arr('8b'), 'white')
+    @board['8g'] = Knight.new(@board,position_to_arr('8g'), 'white')
     @board['2a'] = Pawn.new(@board,position_to_arr('2a'), 'black')
     @board['2b'] = Pawn.new(@board,position_to_arr('2b'), 'black')
     @board['2c'] = Pawn.new(@board,position_to_arr('2c'), 'black')
@@ -85,8 +85,8 @@ class Game
     @board['8h'] = Rook.new(@board,position_to_arr('8h'), 'white')
     @board['1d'] = Queen.new(@board,position_to_arr('1d'), 'black')
     @board['8d'] = Queen.new(@board,position_to_arr('8d'), 'white')
-    @board['1e'] = King.new(position_to_arr('1e'), 'black')
-    @board['8e'] = King.new(position_to_arr('8e'), 'white')
+    @board['1e'] = King.new(@board,position_to_arr('1e'), 'black')
+    @board['8e'] = King.new(@board,position_to_arr('8e'), 'white')
   end
   
   def list_moves(piece_position)
@@ -100,20 +100,14 @@ class Game
   
   def move(piece_position, end_position)
     piece = @board[piece_position]
+    poss_moves = piece.possible_moves.map{ |move_arr| arr_to_position(move_arr) }
     target = @board[end_position]
-    if target == nil
-      #need to make this code better, 
-      if piece.change_position(position_to_arr(end_position))
-        @board[end_position] = piece
-        @board[piece_position] = nil
-      end
-    elsif target.color != piece.color
-      if piece.change_position(position_to_arr(end_position))
-        @board[end_position] = piece
-        @board[piece_position] = nil
-      end
-    elsif target.color == piece.color
-      puts "space taken"
+    if poss_moves.include?(end_position)
+      piece.change_position(position_to_arr(end_position))
+      @board[end_position] = piece
+      @board[piece_position] = nil
+    else
+      puts "Move not allowed!"
     end
   end
     
