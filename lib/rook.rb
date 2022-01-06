@@ -1,7 +1,7 @@
 # lib/rook
 
-# The rook piece can move forward, backward, left or right at any time.
-# The rook piece can move anywhere from 1 to 7 squares in any direction, so long as it is not obstructed by any other piece.
+## The rook piece can move forward, backward, left or right at any time.
+## The rook piece can move anywhere from 1 to 7 squares in any direction, so long as it is not obstructed by any other piece.
 
 
 class Rook
