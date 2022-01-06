@@ -18,29 +18,31 @@ class Pawn
     @color = color
     if @color == 'black'
       @unicode = "\u265f"
+      @direction = 1
     elsif @color == 'white'
       @unicode = "\u2659"
+      @direction = -1
     end
   end
 
   def possible_moves
     if @move_count == 0
-      moves = [[0,1],[0,2]]
+      moves = [[1*@direction, 0], [2*@direction, 0]]
     else
-      moves = [[0,1]]
+      moves = [[1*@direction, 0]]
     end
-    front_right_arr = [1,1].map.with_index{ |v, i| v + @position[i] }
+    front_right_arr = [1*@direction,1].map.with_index{ |v, i| v + @position[i] }
     front_right = @board[arr_to_position(front_right_arr)]
     unless front_right == nil
       unless front_right.color == @color
-        moves << [1, 1]
+        moves << [1*@direction, 1]
       end
     end
-    front_left_arr = [-1,1].map.with_index{ |v, i| v + @position[i] }
+    front_left_arr = [1*@direction,-1].map.with_index{ |v, i| v + @position[i] }
     front_left = @board[arr_to_position(front_left_arr)]
     unless front_left == nil
       unless front_left.color == @color
-        moves << [-1, 1]
+        moves << [1*@direction, -1]
       end
     end
     possible_positions = add_moves_to_position(moves, @position)
