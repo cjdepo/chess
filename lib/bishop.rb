@@ -4,7 +4,7 @@ require_relative '../mod/board_math'
 
 ## The bishop can move in any direction diagonally, so long as it is not obstructed by another piece.
 ## The bishop piece cannot move past any piece that is obstructing its path.
-# The bishop can take any other piece on the board that is within its bounds of movement.
+## The bishop can take any other piece on the board that is within its bounds of movement.
 
 
 class Bishop
