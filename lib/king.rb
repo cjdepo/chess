@@ -3,7 +3,7 @@
 require_relative '../mod/board_math'
 
 ## The king piece can move one single square in any direction.
-# The king cannot move onto a square that is currently occupied by a piece from its own team.
+## The king cannot move onto a square that is currently occupied by a piece from its own team.
 # The king piece cannot move to any square that puts them into a "check" position.
 # The king piece can participate in a move known as "castling", where the piece can move up to three squares while exchanging places with a rook chess piece.
 
@@ -16,9 +16,9 @@ class King
     @position = position_arr
     @moves = [[1, 1], [0, 1], [-1, 1], [1, -1], [0, -1], [-1, -1], [1, 0], [-1, 0]]
     @color = color
-    if @color == 'black'
+    if @color == 'white'
       @unicode = "\u265a"
-    elsif @color == 'white'
+    elsif @color == 'black'
       @unicode = "\u2654"
     end
   end

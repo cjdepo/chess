@@ -16,9 +16,9 @@ class Bishop
     @position = position_arr
     @directions = [[1, 1], [-1, 1], [1, -1], [-1, -1]]
     @color = color
-    if @color == 'black'
+    if @color == 'white'
       @unicode = "\u265d"
-    elsif @color == 'white'
+    elsif @color == 'black'
       @unicode = "\u2657"
     end
   end

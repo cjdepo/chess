@@ -18,9 +18,9 @@ class Queen
     @position = position_arr
     @directions = [[1, 1], [0, 1], [-1, 1], [1, -1], [0, -1], [-1, -1], [1, 0], [-1, 0]]
     @color = color
-    if @color == 'black'
+    if @color == 'white'
       @unicode = "\u265b"
-    elsif @color == 'white'
+    elsif @color == 'black'
       @unicode = "\u2655"
     end
   end

@@ -14,9 +14,9 @@ class Knight
     @position = position_arr
     @moves = [[1,2],[2,1],[-1,2],[2,-1],[1,-2],[-2,-1],[-2,1],[-1,-2]]
     @color = color
-    if @color == 'black'
+    if @color == 'white'
       @unicode = "\u265e"
-    elsif @color == 'white'
+    elsif @color == 'black'
       @unicode = "\u2658"
     end
   end

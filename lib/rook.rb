@@ -13,9 +13,9 @@ class Rook
     @position = position_arr
     @directions = [[1, 0], [-1, 0], [0, 1], [0, -1]]
     @color = color
-    if @color == 'black'
+    if @color == 'white'
       @unicode = "\u265c"
-    elsif @color == 'white'
+    elsif @color == 'black'
       @unicode = "\u2656"
     end
   end

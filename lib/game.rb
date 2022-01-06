@@ -39,9 +39,11 @@ class Game
 
   def print_board
     rows = get_rows(@board)
+    puts "\n\n"
     puts "          ---------------------------------"
+    row_num = 1
     rows.each do |row|
-      str = row.reduce("          |") do |str, pos|
+      str = row.reduce("        #{row_num} |") do |str, pos|
         if pos == nil
           pos = "\u2004".encode('utf-8')
         else
@@ -51,42 +53,44 @@ class Game
       end
       puts str
       puts "          ---------------------------------"
+      row_num += 1
     end
+    puts "            a   b   c   d   e   f   g   h  "
   end
 
   def start_board
-    @board['1b'] = Knight.new(@board,position_to_arr('1b'), 'black')
-    @board['1g'] = Knight.new(@board,position_to_arr('1g'), 'black')
-    @board['8b'] = Knight.new(@board,position_to_arr('8b'), 'white')
-    @board['8g'] = Knight.new(@board,position_to_arr('8g'), 'white')
-    @board['2a'] = Pawn.new(@board,position_to_arr('2a'), 'black')
-    @board['2b'] = Pawn.new(@board,position_to_arr('2b'), 'black')
-    @board['2c'] = Pawn.new(@board,position_to_arr('2c'), 'black')
-    @board['2d'] = Pawn.new(@board,position_to_arr('2d'), 'black')
-    @board['2e'] = Pawn.new(@board,position_to_arr('2e'), 'black')
-    @board['2f'] = Pawn.new(@board,position_to_arr('2f'), 'black')
-    @board['2g'] = Pawn.new(@board,position_to_arr('2g'), 'black')
-    @board['2h'] = Pawn.new(@board,position_to_arr('2h'), 'black')
-    @board['7a'] = Pawn.new(@board,position_to_arr('7a'), 'white')
-    @board['7b'] = Pawn.new(@board,position_to_arr('7b'), 'white')
-    @board['7c'] = Pawn.new(@board,position_to_arr('7c'), 'white')
-    @board['7d'] = Pawn.new(@board,position_to_arr('7d'), 'white')
-    @board['7e'] = Pawn.new(@board,position_to_arr('7e'), 'white')
-    @board['7f'] = Pawn.new(@board,position_to_arr('7f'), 'white')
-    @board['7g'] = Pawn.new(@board,position_to_arr('7g'), 'white')
-    @board['7h'] = Pawn.new(@board,position_to_arr('7h'), 'white')
-    @board['1c'] = Bishop.new(@board,position_to_arr('1c'), 'black')
-    @board['1f'] = Bishop.new(@board,position_to_arr('1f'), 'black')
-    @board['8c'] = Bishop.new(@board,position_to_arr('8c'), 'white')
-    @board['8f'] = Bishop.new(@board,position_to_arr('8f'), 'white')
-    @board['1a'] = Rook.new(@board,position_to_arr('1a'), 'black')
-    @board['1h'] = Rook.new(@board,position_to_arr('1h'), 'black')
-    @board['8a'] = Rook.new(@board,position_to_arr('8a'), 'white')
-    @board['8h'] = Rook.new(@board,position_to_arr('8h'), 'white')
-    @board['1d'] = Queen.new(@board,position_to_arr('1d'), 'black')
-    @board['8d'] = Queen.new(@board,position_to_arr('8d'), 'white')
-    @board['1e'] = King.new(@board,position_to_arr('1e'), 'black')
-    @board['8e'] = King.new(@board,position_to_arr('8e'), 'white')
+    @board['1b'] = Knight.new(@board,position_to_arr('1b'), 'white')
+    @board['1g'] = Knight.new(@board,position_to_arr('1g'), 'white')
+    @board['8b'] = Knight.new(@board,position_to_arr('8b'), 'black')
+    @board['8g'] = Knight.new(@board,position_to_arr('8g'), 'black')
+    @board['2a'] = Pawn.new(@board,position_to_arr('2a'), 'white')
+    @board['2b'] = Pawn.new(@board,position_to_arr('2b'), 'white')
+    @board['2c'] = Pawn.new(@board,position_to_arr('2c'), 'white')
+    @board['2d'] = Pawn.new(@board,position_to_arr('2d'), 'white')
+    @board['2e'] = Pawn.new(@board,position_to_arr('2e'), 'white')
+    @board['2f'] = Pawn.new(@board,position_to_arr('2f'), 'white')
+    @board['2g'] = Pawn.new(@board,position_to_arr('2g'), 'white')
+    @board['2h'] = Pawn.new(@board,position_to_arr('2h'), 'white')
+    @board['7a'] = Pawn.new(@board,position_to_arr('7a'), 'black')
+    @board['7b'] = Pawn.new(@board,position_to_arr('7b'), 'black')
+    @board['7c'] = Pawn.new(@board,position_to_arr('7c'), 'black')
+    @board['7d'] = Pawn.new(@board,position_to_arr('7d'), 'black')
+    @board['7e'] = Pawn.new(@board,position_to_arr('7e'), 'black')
+    @board['7f'] = Pawn.new(@board,position_to_arr('7f'), 'black')
+    @board['7g'] = Pawn.new(@board,position_to_arr('7g'), 'black')
+    @board['7h'] = Pawn.new(@board,position_to_arr('7h'), 'black')
+    @board['1c'] = Bishop.new(@board,position_to_arr('1c'), 'white')
+    @board['1f'] = Bishop.new(@board,position_to_arr('1f'), 'white')
+    @board['8c'] = Bishop.new(@board,position_to_arr('8c'), 'black')
+    @board['8f'] = Bishop.new(@board,position_to_arr('8f'), 'black')
+    @board['1a'] = Rook.new(@board,position_to_arr('1a'), 'white')
+    @board['1h'] = Rook.new(@board,position_to_arr('1h'), 'white')
+    @board['8a'] = Rook.new(@board,position_to_arr('8a'), 'black')
+    @board['8h'] = Rook.new(@board,position_to_arr('8h'), 'black')
+    @board['1d'] = Queen.new(@board,position_to_arr('1d'), 'white')
+    @board['8d'] = Queen.new(@board,position_to_arr('8d'), 'black')
+    @board['1e'] = King.new(@board,position_to_arr('1e'), 'white')
+    @board['8e'] = King.new(@board,position_to_arr('8e'), 'black')
   end
   
   def list_moves(piece_position)
@@ -106,12 +110,67 @@ class Game
       piece.change_position(position_to_arr(end_position))
       @board[end_position] = piece
       @board[piece_position] = nil
+      puts "#{piece.class} moved from #{piece_position} to #{end_position}"
+      true
     else
       puts "Move not allowed!"
+      false
     end
   end
-    
 
+  def start
+    puts "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+    puts 'OK here we go...'
 
-      
+    puts 'When it is your turn, choose a piece on the board by typing its position in the number letter format (i.e. 5c, 7a).'
+    puts 'When you choose a piece it will return a list of possible positions to move to.'
+    puts 'At this point you can either type in one of the possible positions to move the piece...'
+    puts '... or you can type "select" and select another piece.'
+
+    loop do
+      print_board
+      puts "\n\n"
+      puts "\n-----WHITE PLAYER-------"
+      player_input('white')
+      print_board
+      puts "\n\n"
+      puts "\n------BLACK PLAYER-------"
+      player_input('black')
+    end
+  end
+
+   def player_input(color)
+    catch(:input) do
+      loop do
+        piece = nil
+        until piece do
+          puts "\nType a position and hit enter:   "
+          piece_position = gets.chomp
+          if @board[piece_position] == nil
+            puts "\nNo piece on this position."
+          elsif @board[piece_position].color != color
+            puts "\nNot your piece!"
+          else
+            puts "\n"
+            puts "Possible moves:"
+            @board[piece_position].possible_moves.each{ |arr| puts arr_to_position(arr) }
+            piece = @board[piece_position]
+          end
+        end
+        loop do
+          puts "\nTo select another piece, type 'select' and hit enter."
+          puts "To move the piece, type a position listed above and hit enter."
+          target = gets.chomp
+          if target == 'select'
+            break
+          elsif move(piece_position, target)
+            throw(:input)
+          else
+            puts "\nEnter a valid move!:"
+            next
+          end
+        end
+      end
+    end
+  end
 end

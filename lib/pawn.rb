@@ -16,10 +16,10 @@ class Pawn
     @position = position_arr
     @move_count = 0
     @color = color
-    if @color == 'black'
+    if @color == 'white'
       @unicode = "\u265f"
       @direction = 1
-    elsif @color == 'white'
+    elsif @color == 'black'
       @unicode = "\u2659"
       @direction = -1
     end
