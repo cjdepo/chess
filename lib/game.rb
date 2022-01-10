@@ -59,46 +59,59 @@ class Game
   end
 
   def start_board
-    @board['1b'] = Knight.new(@board,position_to_arr('1b'), 'white')
-    @board['1g'] = Knight.new(@board,position_to_arr('1g'), 'white')
-    @board['8b'] = Knight.new(@board,position_to_arr('8b'), 'black')
-    @board['8g'] = Knight.new(@board,position_to_arr('8g'), 'black')
-    @board['2a'] = Pawn.new(@board,position_to_arr('2a'), 'white')
-    @board['2b'] = Pawn.new(@board,position_to_arr('2b'), 'white')
-    @board['2c'] = Pawn.new(@board,position_to_arr('2c'), 'white')
-    @board['2d'] = Pawn.new(@board,position_to_arr('2d'), 'white')
-    @board['2e'] = Pawn.new(@board,position_to_arr('2e'), 'white')
-    @board['2f'] = Pawn.new(@board,position_to_arr('2f'), 'white')
-    @board['2g'] = Pawn.new(@board,position_to_arr('2g'), 'white')
-    @board['2h'] = Pawn.new(@board,position_to_arr('2h'), 'white')
-    @board['7a'] = Pawn.new(@board,position_to_arr('7a'), 'black')
-    @board['7b'] = Pawn.new(@board,position_to_arr('7b'), 'black')
-    @board['7c'] = Pawn.new(@board,position_to_arr('7c'), 'black')
-    @board['7d'] = Pawn.new(@board,position_to_arr('7d'), 'black')
-    @board['7e'] = Pawn.new(@board,position_to_arr('7e'), 'black')
-    @board['7f'] = Pawn.new(@board,position_to_arr('7f'), 'black')
-    @board['7g'] = Pawn.new(@board,position_to_arr('7g'), 'black')
-    @board['7h'] = Pawn.new(@board,position_to_arr('7h'), 'black')
-    @board['1c'] = Bishop.new(@board,position_to_arr('1c'), 'white')
-    @board['1f'] = Bishop.new(@board,position_to_arr('1f'), 'white')
-    @board['8c'] = Bishop.new(@board,position_to_arr('8c'), 'black')
-    @board['8f'] = Bishop.new(@board,position_to_arr('8f'), 'black')
-    @board['1a'] = Rook.new(@board,position_to_arr('1a'), 'white')
-    @board['1h'] = Rook.new(@board,position_to_arr('1h'), 'white')
-    @board['8a'] = Rook.new(@board,position_to_arr('8a'), 'black')
-    @board['8h'] = Rook.new(@board,position_to_arr('8h'), 'black')
-    @board['1d'] = Queen.new(@board,position_to_arr('1d'), 'white')
-    @board['8d'] = Queen.new(@board,position_to_arr('8d'), 'black')
-    @board['1e'] = King.new(@board,position_to_arr('1e'), 'white')
-    @board['8e'] = King.new(@board,position_to_arr('8e'), 'black')
+    @whites = []
+    @blacks = []
+    @whites << @board['1b'] = Knight.new(@board,position_to_arr('1b'), 'white')
+    @whites << @board['1g'] = Knight.new(@board,position_to_arr('1g'), 'white')
+    @blacks << @board['8b'] = Knight.new(@board,position_to_arr('8b'), 'black')
+    @blacks << @board['8g'] = Knight.new(@board,position_to_arr('8g'), 'black')
+    @whites << @board['2a'] = Pawn.new(@board,position_to_arr('2a'), 'white')
+    @whites << @board['2b'] = Pawn.new(@board,position_to_arr('2b'), 'white')
+    @whites << @board['2c'] = Pawn.new(@board,position_to_arr('2c'), 'white')
+    @whites << @board['2d'] = Pawn.new(@board,position_to_arr('2d'), 'white')
+    @whites << @board['2e'] = Pawn.new(@board,position_to_arr('2e'), 'white')
+    @whites << @board['2f'] = Pawn.new(@board,position_to_arr('2f'), 'white')
+    @whites << @board['2g'] = Pawn.new(@board,position_to_arr('2g'), 'white')
+    @whites << @board['2h'] = Pawn.new(@board,position_to_arr('2h'), 'white')
+    @blacks << @board['7a'] = Pawn.new(@board,position_to_arr('7a'), 'black')
+    @blacks << @board['7b'] = Pawn.new(@board,position_to_arr('7b'), 'black')
+    @blacks << @board['7c'] = Pawn.new(@board,position_to_arr('7c'), 'black')
+    @blacks << @board['7d'] = Pawn.new(@board,position_to_arr('7d'), 'black')
+    @blacks << @board['7e'] = Pawn.new(@board,position_to_arr('7e'), 'black')
+    @blacks << @board['7f'] = Pawn.new(@board,position_to_arr('7f'), 'black')
+    @blacks << @board['7g'] = Pawn.new(@board,position_to_arr('7g'), 'black')
+    @blacks << @board['7h'] = Pawn.new(@board,position_to_arr('7h'), 'black')
+    @whites << @board['1c'] = Bishop.new(@board,position_to_arr('1c'), 'white')
+    @whites << @board['1f'] = Bishop.new(@board,position_to_arr('1f'), 'white')
+    @blacks << @board['8c'] = Bishop.new(@board,position_to_arr('8c'), 'black')
+    @blacks << @board['8f'] = Bishop.new(@board,position_to_arr('8f'), 'black')
+    @whites << @board['1a'] = Rook.new(@board,position_to_arr('1a'), 'white')
+    @whites << @board['1h'] = Rook.new(@board,position_to_arr('1h'), 'white')
+    @blacks << @board['8a'] = Rook.new(@board,position_to_arr('8a'), 'black')
+    @blacks << @board['8h'] = Rook.new(@board,position_to_arr('8h'), 'black')
+    @whites << @board['1d'] = Queen.new(@board,position_to_arr('1d'), 'white')
+    @blacks << @board['8d'] = Queen.new(@board,position_to_arr('8d'), 'black')
+    @whites << @board['1e'] = King.new(@board,position_to_arr('1e'), 'white')
+    @blacks << @board['8e'] = King.new(@board,position_to_arr('8e'), 'black')
   end
   
-  def list_moves(piece_position)
-    piece = @board[piece_position]
-    if piece == nil
-      return nil
+  def get_all_moves(color)
+    if color == 'white'
+      white_moves = @whites.reduce([]) do |all_moves, white_piece|
+        white_piece.possible_moves.reduce(all_moves) do |all_moves, move|
+         all_moves << move
+        end
+      end
+      white_moves
+    elsif color == 'black'
+      black_moves = @blacks.reduce([]) do |all_moves, black_piece|
+        black_piece.possible_moves.reduce(all_moves) do |all_moves, move|
+          all_moves << move
+        end
+      end
+      black_moves
     else
-      piece.possible_moves
+      raise "argument must be 'black' or 'white'"
     end
   end
   
