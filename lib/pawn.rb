@@ -26,10 +26,18 @@ class Pawn
   end
 
   def possible_moves
-    if @move_count == 0
-      moves = [[1*@direction, 0], [2*@direction, 0]]
-    else
+    plus_one = @board[arr_to_position([1*@direction,0].map.with_index{ |v, i| v + @position[i] })]
+    plus_two = @board[arr_to_position([2*@direction,0].map.with_index{ |v, i| v + @position[i] })]
+    if !plus_one && !plus_two
+      if @move_count == 0
+        moves = [[1*@direction, 0], [2*@direction, 0]]
+      else
+        moves = [[1*@direction, 0]]
+      end
+    elsif !plus_one
       moves = [[1*@direction, 0]]
+    else
+      moves = []
     end
     front_right_arr = [1*@direction,1].map.with_index{ |v, i| v + @position[i] }
     front_right = @board[arr_to_position(front_right_arr)]
