@@ -94,41 +94,6 @@ class Game
     @board['8e'] = King.new(@board,position_to_arr('8e'), 'black')
   end
   
-  def get_all_moves(color)
-
-
-    whites = @board.values.select do |position|
-      if position
-        position.color == 'white'
-      else
-        false
-      end
-    end
-    blacks = @board.values.select do |position|
-      if position
-        position.color == 'black'
-      else
-        false
-      end
-    end
-    if color == 'white'
-      white_moves = whites.reduce([]) do |all_moves, white_piece|
-        white_piece.possible_moves.reduce(all_moves) do |all_moves, move|
-         all_moves << move
-        end
-      end
-      white_moves
-    elsif color == 'black'
-      black_moves = blacks.reduce([]) do |all_moves, black_piece|
-        black_piece.possible_moves.reduce(all_moves) do |all_moves, move|
-          all_moves << move
-        end
-      end
-      black_moves
-    else
-      raise "argument must be 'black' or 'white'"
-    end
-  end
   
   def move(piece_position, end_position)
     piece = @board[piece_position]
