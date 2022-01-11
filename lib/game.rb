@@ -119,8 +119,7 @@ class Game
     piece = @board[piece_position]
     poss_moves = piece.possible_moves.map{ |move_arr| arr_to_position(move_arr) }
     target = @board[end_position]
-    if poss_moves.include?(end_position)
-      piece.change_position(position_to_arr(end_position))
+    if piece.change_position(position_to_arr(end_position))
       @board[end_position] = piece
       @board[piece_position] = nil
       puts "#{piece.class} moved from #{piece_position} to #{end_position}"
