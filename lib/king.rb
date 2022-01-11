@@ -43,6 +43,13 @@ class King
         arr
       end
     end.compact!
+    possible_positions.map! do |arr|
+      if check(arr)
+        nil
+      else
+        arr
+      end
+    end.compact!
     possible_positions
   end
 
@@ -53,6 +60,19 @@ class King
       return nil
     else
       @position = target_arr
+    end
+  end
+
+  def check(position_arr)
+    if @color == 'black'
+      opp_moves = get_all_moves('white')
+    elsif @color == 'white'
+      opp_moves = get_all_moves('black')
+    end
+    if opp_moves.include?(position_arr)
+      true
+    else
+      false
     end
   end
 
