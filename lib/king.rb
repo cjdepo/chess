@@ -43,13 +43,6 @@ class King
         arr
       end
     end.compact!
-    possible_positions.map! do |arr|
-      if check(arr)
-        nil
-      else
-        arr
-      end
-    end.compact!
     possible_positions
   end
 
