@@ -9,7 +9,7 @@ require_relative '../mod/board_math'
 
 class Game
   include BoardMath
-  attr_reader :board
+  attr_reader :board,  :black_check, :white_check
 
   def initialize
     @rows = [1, 2, 3, 4, 5, 6, 7, 8]
@@ -17,6 +17,8 @@ class Game
     @positions = []
     @rows.each { |row| @columns.each{ |column| @positions << (row.to_s << column.to_s) }}
     @board = @positions.reduce({}) { |board, position| board[position] = nil; board }
+    @black_check = false
+    @white_check = false
   end
 
   def get_rows(board=@board)
@@ -124,10 +126,24 @@ class Game
       puts "\n\n"
       puts "\n-----WHITE PLAYER-------"
       player_input('white')
+      check('white')
+      check('black')
+      if @black_check
+        puts "Black King in check!"
+      elsif @white_check
+        puts "White King in check!"
+      end
       print_board
       puts "\n\n"
       puts "\n------BLACK PLAYER-------"
       player_input('black')
+      check('white')
+      check('black')
+      if @black_check
+        puts "Black King in check!"
+      elsif @white_check
+        puts "White King in check!"
+      end
     end
   end
 
@@ -173,16 +189,16 @@ class Game
     white_king = get_king('white')
     if king_color == 'black'
       if white_moves.include?(black_king.position)
-        return true
+        @black_check = true
       else
-        return false
+        @black_check = false
       end
     end
     if king_color == 'white'
       if black_moves.include?(white_king.position)
-        return true
+        @white_check = true
       else
-        return false
+        @white_check = false
       end
     end
   end
