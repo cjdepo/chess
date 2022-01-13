@@ -56,7 +56,7 @@ class King
     end
   end
 
-  def check(position_arr)
+  def check
     if @color == 'black'
       opp_moves = get_all_moves('white')
     elsif @color == 'white'

@@ -165,4 +165,26 @@ class Game
       end
     end
   end
+
+  def check(king_color)
+    black_moves = get_all_moves('black')
+    white_moves = get_all_moves('white')
+    black_king = get_king('black')
+    white_king = get_king('white')
+    if king_color == 'black'
+      if white_moves.include?(black_king.position)
+        return true
+      else
+        return false
+      end
+    end
+    if king_color == 'white'
+      if black_moves.include?(white_king.position)
+        return true
+      else
+        return false
+      end
+    end
+  end
+
 end

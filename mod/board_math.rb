@@ -73,4 +73,15 @@ module BoardMath
     end
   end
 
+  def get_king(color)
+    king = @board.values.select do |pos|
+      if pos
+        pos.class == King && pos.color == color
+      else
+        false
+      end
+    end
+    king[0]
+  end
+
 end
