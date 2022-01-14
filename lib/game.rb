@@ -228,27 +228,12 @@ class Game
     whites = get_all_pieces('white')
     black_king = get_king('black')
     white_king = get_king('white')
-    if @black_check
+    if @white_check
       whites.each do |white_piece| 
         white_piece.possible_moves.each do |end_pos|
           move(arr_to_position(white_piece.position), arr_to_position(end_pos))
-          p 'hi'
-          if !check('black')
-            unmove
-            return
-          else
-            unmove
-          end
-        end
-      end
-      @black_checkmate = true
-    end
-    if @white_check
-      blacks.each do |black_piece| 
-        black_piece.possible_moves.each do |end_pos|
-          move(arr_to_position(black_piece.position), arr_to_position(end_pos))
-          p 'hi'
-          if !check('white')
+          check('white')
+          if !@white_check
             unmove
             return
           else
@@ -257,6 +242,21 @@ class Game
         end
       end
       @white_checkmate = true
+    end
+    if @black_check
+      blacks.each do |black_piece| 
+        black_piece.possible_moves.each do |end_pos|
+          move(arr_to_position(black_piece.position), arr_to_position(end_pos))
+          check('black')
+          if !@black_check
+            unmove
+            return
+          else
+            unmove
+          end
+        end
+      end
+      @black_checkmate = true
     end
   end
 end
