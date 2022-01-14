@@ -7,13 +7,14 @@ require_relative '../mod/board_math'
 
 class Knight
   include BoardMath
-  attr_reader :moves, :position, :color, :unicode
+  attr_reader :moves, :position, :color, :unicode, :prev_position
 
   def initialize(board, position_arr, color)
     @board = board
     @position = position_arr
     @moves = [[1,2],[2,1],[-1,2],[2,-1],[1,-2],[-2,-1],[-2,1],[-1,-2]]
     @color = color
+    @prev_position = nil
     if @color == 'white'
       @unicode = "\u265e"
     elsif @color == 'black'
@@ -50,8 +51,13 @@ class Knight
       puts "illegal move"
       return nil
     else
+      @prev_position = @position
       @position = target_arr
     end
+  end
+  
+  def undo_move
+    @position = @prev_position
   end
 
 end

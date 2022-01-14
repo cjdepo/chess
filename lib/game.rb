@@ -9,7 +9,7 @@ require_relative '../mod/board_math'
 
 class Game
   include BoardMath
-  attr_reader :board,  :black_check, :white_check
+  attr_reader :board,  :black_check, :white_check, :black_checkmate, :white_checkmate, :prev_end_piece, :prev_end_pos, :prev_start_piece, :prev_end_pos
 
   def initialize
     @rows = [1, 2, 3, 4, 5, 6, 7, 8]
@@ -19,6 +19,8 @@ class Game
     @board = @positions.reduce({}) { |board, position| board[position] = nil; board }
     @black_check = false
     @white_check = false
+    @black_checkmate = false
+    @white_checkmate = false
   end
 
   def get_rows(board=@board)
@@ -102,6 +104,10 @@ class Game
     poss_moves = piece.possible_moves.map{ |move_arr| arr_to_position(move_arr) }
     target = @board[end_position]
     if piece.change_position(position_to_arr(end_position))
+      @prev_end_pos = end_position
+      @prev_start_pos = piece_position
+      @prev_start_piece = piece
+      @prev_end_piece = target
       @board[end_position] = piece
       @board[piece_position] = nil
       puts "#{piece.class} moved from #{piece_position} to #{end_position}"
@@ -112,15 +118,21 @@ class Game
     end
   end
 
+  def unmove
+    if @prev_start_piece
+      @board[@prev_end_pos] = @prev_end_piece
+      @board[@prev_start_pos] = @prev_start_piece
+      @prev_start_piece.undo_move
+    end
+  end
+
   def start
     puts "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
     puts 'OK here we go...'
-
     puts 'When it is your turn, choose a piece on the board by typing its position in the number letter format (i.e. 5c, 7a).'
     puts 'When you choose a piece it will return a list of possible positions to move to.'
     puts 'At this point you can either type in one of the possible positions to move the piece...'
     puts '... or you can type "select" and select another piece.'
-
     loop do
       print_board
       puts "\n\n"
@@ -130,8 +142,16 @@ class Game
       check('black')
       if @black_check
         puts "Black King in check!"
+        checkmate
+        if @black_checkmate
+          p "WHITE PLAYER WINS!!!!!!!!"
+        end
       elsif @white_check
         puts "White King in check!"
+        checkmate
+        if @white_checkmate
+          p "BLACK PLAYER WINS!!!!!!!!"
+        end
       end
       print_board
       puts "\n\n"
@@ -203,4 +223,40 @@ class Game
     end
   end
 
+  def checkmate
+    blacks = get_all_pieces('black')
+    whites = get_all_pieces('white')
+    black_king = get_king('black')
+    white_king = get_king('white')
+    if @black_check
+      whites.each do |white_piece| 
+        white_piece.possible_moves.each do |end_pos|
+          move(arr_to_position(white_piece.position), arr_to_position(end_pos))
+          p 'hi'
+          if !check('black')
+            unmove
+            return
+          else
+            unmove
+          end
+        end
+      end
+      @black_checkmate = true
+    end
+    if @white_check
+      blacks.each do |black_piece| 
+        black_piece.possible_moves.each do |end_pos|
+          move(arr_to_position(black_piece.position), arr_to_position(end_pos))
+          p 'hi'
+          if !check('white')
+            unmove
+            return
+          else
+            unmove
+          end
+        end
+      end
+      @white_checkmate = true
+    end
+  end
 end

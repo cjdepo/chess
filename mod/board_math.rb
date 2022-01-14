@@ -39,35 +39,38 @@ module BoardMath
     moves.map{|move| move.map.with_index{|xy, i| xy + position[i]}}
   end
 
-  def get_all_moves(color)
-    whites = @board.values.select do |position|
-      if position
-        position.color == 'white'
-      else
-        false
-      end
-    end
-    blacks = @board.values.select do |position|
-      if position
-        position.color == 'black'
-      else
-        false
-      end
-    end
+  def get_all_pieces(color)
     if color == 'white'
-      white_moves = whites.reduce([]) do |all_moves, white_piece|
-        white_piece.possible_moves.reduce(all_moves) do |all_moves, move|
-         all_moves << move
+      pieces = @board.values.select do |position|
+        if position
+          position.color == 'white'
+        else
+          false
         end
       end
-      white_moves
+      pieces
     elsif color == 'black'
-      black_moves = blacks.reduce([]) do |all_moves, black_piece|
-        black_piece.possible_moves.reduce(all_moves) do |all_moves, move|
+      pieces = @board.values.select do |position|
+        if position
+          position.color == 'black'
+        else
+          false
+        end
+      end
+      pieces
+    end
+  end
+
+
+  def get_all_moves(color)
+    pieces = get_all_pieces(color)
+    if color == 'white' || color == 'black'
+      moves = pieces.reduce([]) do |all_moves, piece|
+        piece.possible_moves.reduce(all_moves) do |all_moves, move|
           all_moves << move
         end
       end
-      black_moves
+      moves
     else
       raise "argument must be 'black' or 'white'"
     end

@@ -9,13 +9,14 @@ require_relative '../mod/board_math'
 
 class Pawn
   include BoardMath
-  attr_reader :moves, :color, :unicode
+  attr_reader :moves, :color, :position, :unicode, :prev_position
 
   def initialize(board, position_arr, color)
     @board = board
     @position = position_arr
     @move_count = 0
     @color = color
+    @prev_position = nil
     if @color == 'white'
       @unicode = "\u265f"
       @direction = 1
@@ -63,8 +64,15 @@ class Pawn
       puts "illegal move"
       return nil
     else
+      @prev_position = @position
       @position = target_arr
       @move_count += 1
     end
   end
+
+  def undo_move
+    @position = @prev_position
+    @move_count -=1
+  end
+  
 end
