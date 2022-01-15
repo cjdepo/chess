@@ -31,10 +31,8 @@ class Game
     blacks_hash.each do |position, type| 
       if type == 'Pawn'
         if /7[a-z]/.match?(position)
-          p 'bitcho'
           @board[position] = Pawn.new(@board, position_to_arr(position), 'black')
         else
-          p 'ho'
           @board[position] = Pawn.new(@board, position_to_arr(position), 'black', 1)
         end
       elsif type == 'Knight'
@@ -50,15 +48,11 @@ class Game
       end
     end
     whites_hash = data["whites_hash"]
-    p whites_hash
     whites_hash.each do |position, type| 
-      p position
       if type == 'Pawn'
         if /2[a-z]/.match?(position)
-          p 'bitch'
           @board[position] = Pawn.new(@board, position_to_arr(position), 'white')
         else
-          p 'ho'
           @board[position] = Pawn.new(@board, position_to_arr(position), 'white', 1)
         end
       elsif type == 'Knight'
@@ -73,7 +67,6 @@ class Game
         @board[position] = King.new(@board, position_to_arr(position), 'white')
       end
     end
-    p @board
     @black_check = data["black_check"]
     @white_check = data["white_check"]
     @black_checkmate = data["black_checkmate"]
@@ -208,7 +201,6 @@ class Game
       @prev_end_piece = target
       @board[end_position] = piece
       @board[piece_position] = nil
-      puts "#{piece.class} moved from #{piece_position} to #{end_position}"
       true
     else
       puts "Move not allowed!"
@@ -261,7 +253,7 @@ class Game
             puts "Black King in check!"
             checkmate
             if @black_checkmate
-              p "WHITE PLAYER WINS!!!!!!!!"
+              puts "CHECKMATE.\n\nWHITE PLAYER WINS!!!!!!!!"
               save_game
               return
             end
@@ -294,7 +286,7 @@ class Game
             puts "White King in check!"
             checkmate
             if @white_checkmate
-              p "BLACK PLAYER WINS!!!!!!!!"
+              puts "CHECKMATE.\n\nBLACK PLAYER WINS!!!!!!!!"
               save_game
               return
             end

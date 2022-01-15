@@ -69,7 +69,6 @@ class Pawn
 
   def change_position(target_arr)
     possible_targets = possible_moves
-    p possible_targets
     unless possible_targets.include?(target_arr)
       puts "illegal move"
       return nil
