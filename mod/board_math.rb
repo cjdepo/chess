@@ -29,7 +29,7 @@ module BoardMath
     end
     columns.each_with_index do |column, i|
       if arr[1] == i + 1
-          position[1] = column.to_s
+        position[1] = column.to_s
       end
     end
     position

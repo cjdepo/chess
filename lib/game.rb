@@ -25,8 +25,55 @@ class Game
     @columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
     @positions = []
     @rows.each { |row| @columns.each{ |column| @positions << (row.to_s << column.to_s) }}
+    @board = @positions.reduce({}) { |board, position| board[position] = nil; board }
     @id = game_number
-    @board = data["board"]
+    blacks_hash = data["blacks_hash"]
+    blacks_hash.each do |position, type| 
+      if type == 'Pawn'
+        if /7[a-z]/.match?(position)
+          p 'bitcho'
+          @board[position] = Pawn.new(@board, position_to_arr(position), 'black')
+        else
+          p 'ho'
+          @board[position] = Pawn.new(@board, position_to_arr(position), 'black', 1)
+        end
+      elsif type == 'Knight'
+        @board[position] = Knight.new(@board, position_to_arr(position), 'black')
+      elsif type == 'Bishop'
+        @board[position] = Bishop.new(@board, position_to_arr(position), 'black')
+      elsif type == 'Rook'
+        @board[position] = Rook.new(@board, position_to_arr(position), 'black')
+      elsif type == 'Queen'
+        @board[position] = Queen.new(@board, position_to_arr(position), 'black')
+      elsif type == 'King'
+        @board[position] = King.new(@board, position_to_arr(position), 'black')
+      end
+    end
+    whites_hash = data["whites_hash"]
+    p whites_hash
+    whites_hash.each do |position, type| 
+      p position
+      if type == 'Pawn'
+        if /2[a-z]/.match?(position)
+          p 'bitch'
+          @board[position] = Pawn.new(@board, position_to_arr(position), 'white')
+        else
+          p 'ho'
+          @board[position] = Pawn.new(@board, position_to_arr(position), 'white', 1)
+        end
+      elsif type == 'Knight'
+        @board[position] = Knight.new(@board, position_to_arr(position), 'white')
+      elsif type == 'Bishop'
+        @board[position] = Bishop.new(@board, position_to_arr(position), 'white')
+      elsif type == 'Rook'
+        @board[position] = Rook.new(@board, position_to_arr(position), 'white')
+      elsif type == 'Queen'
+        @board[position] = Queen.new(@board, position_to_arr(position), 'white')
+      elsif type == 'King'
+        @board[position] = King.new(@board, position_to_arr(position), 'white')
+      end
+    end
+    p @board
     @black_check = data["black_check"]
     @white_check = data["white_check"]
     @black_checkmate = data["black_checkmate"]
@@ -123,8 +170,15 @@ class Game
   end
 
   def save_game
+    blacks = get_all_pieces('black')
+    blacks_hash = {}
+    blacks.each{ |black| blacks_hash[arr_to_position(black.position)] = black.class }
+    whites = get_all_pieces('white')
+    whites_hash = {}
+    whites.each{ |white| whites_hash[arr_to_position(white.position)] = white.class }
     json_string = JSON.dump({
-      :board => @board,
+      :blacks_hash => blacks_hash,
+      :whites_hash => whites_hash,
       :black_check => @black_check,
       :white_check => @white_check,
       :black_checkmate => @black_checkmate,

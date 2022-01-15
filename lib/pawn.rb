@@ -9,12 +9,12 @@ require_relative '../mod/board_math'
 
 class Pawn
   include BoardMath
-  attr_reader :moves, :color, :position, :unicode, :prev_position
+  attr_reader :moves, :color, :position, :unicode, :prev_position, :move_count
 
-  def initialize(board, position_arr, color)
+  def initialize(board, position_arr, color, move_count=0)
     @board = board
     @position = position_arr
-    @move_count = 0
+    @move_count = move_count
     @color = color
     @prev_position = nil
     if @color == 'white'
@@ -27,8 +27,18 @@ class Pawn
   end
 
   def possible_moves
-    plus_one = @board[arr_to_position([1*@direction,0].map.with_index{ |v, i| v + @position[i] })]
-    plus_two = @board[arr_to_position([2*@direction,0].map.with_index{ |v, i| v + @position[i] })]
+    plus_one_arr = [1*@direction,0].map.with_index{ |v, i| v + @position[i] }
+    if plus_one_arr.any?{ |v| v < 1 || v > 8 }
+      plus_one = 'off-board'
+    else
+      plus_one = @board[arr_to_position(plus_one_arr)]
+    end
+    plus_two_arr = [2*@direction,0].map.with_index{ |v, i| v + @position[i] }
+    if plus_two_arr.any?{ |v| v < 1 || v > 8 }
+      plus_two = 'off-board'
+    else
+      plus_two = @board[arr_to_position(plus_two_arr)]
+    end
     if !plus_one && !plus_two
       if @move_count == 0
         moves = [[1*@direction, 0], [2*@direction, 0]]
