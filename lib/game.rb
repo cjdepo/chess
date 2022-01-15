@@ -10,7 +10,7 @@ require_relative '../mod/board_math'
 
 class Game
   include BoardMath
-  attr_reader :id, :board,  :black_check, :white_check, :black_checkmate, :white_checkmate, :prev_end_piece, :prev_end_pos, :prev_start_piece, :prev_start_pos
+  attr_reader :id, :board,  :black_check, :white_check, :black_checkmate, :white_checkmate, :prev_end_piece, :prev_end_pos, :prev_start_piece, :prev_start_pos, :player_turn
 
   @@game_count = Dir.glob("saved_games/*").length
 
@@ -82,11 +82,13 @@ class Game
     @prev_end_pos = data["prev_end_pos"]
     @prev_start_piece = data["prev_start_piece"]
     @prev_start_pos = data["prev_start_pos"]
+    @player_turn = data["player_turn"]
   end
 
   def load_new_game
     @@game_count += 1
     @id = @@game_count
+    @player_turn = 'white'
     @rows = [1, 2, 3, 4, 5, 6, 7, 8]
     @columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
     @positions = []
@@ -187,6 +189,7 @@ class Game
       :prev_end_pos => @prev_end_pos,
       :prev_start_piece => @prev_start_piece,
       :prev_start_pos => @prev_start_pos,
+      :player_turn => @player_turn
     })
     save_dir = Dir.mkdir("saved_games") unless File.exists?("saved_games")
     save_file = File.new("saved_games/game_#{self.id}", "w")
@@ -231,65 +234,70 @@ class Game
     puts '... or you can type "save" to save the current game and open the menu.'
     loop do
       catch(:game_loop) do
-        print_board
-        puts "\n\n"
-        puts "\n-----WHITE PLAYER-------"
-        input = player_input('white')
-        if input == 'exit'
-          save_game
-          return
-        end
-        check('white')
-        while @white_check
-          puts
-          puts "\nYou can't put your own king in check."
-          unmove
+        if @player_turn == 'white'
+          print_board
+          puts "\n\n"
+          puts "\n-----WHITE PLAYER-------"
           input = player_input('white')
           if input == 'exit'
             save_game
             return
           end
+          @player_turn = 'black'
           check('white')
-        end
-        check('black')
-        if @black_check
-          puts "Black King in check!"
-          checkmate
-          if @black_checkmate
-            p "WHITE PLAYER WINS!!!!!!!!"
-            save_game
-            return
+          while @white_check
+            puts
+            puts "\nYou can't put your own king in check."
+            unmove
+            input = player_input('white')
+            if input == 'exit'
+              save_game
+              return
+            end
+            check('white')
+          end
+          check('black')
+          if @black_check
+            puts "Black King in check!"
+            checkmate
+            if @black_checkmate
+              p "WHITE PLAYER WINS!!!!!!!!"
+              save_game
+              return
+            end
           end
         end
-
-        print_board
-        puts "\n\n"
-        puts "\n-----BLACK PLAYER-------"
-        input = player_input('black')
-        if input == 'exit'
-          save_game
-          return
-        end
-        check('black')
-        while @black_check
-          puts
-          puts "\nYou can't put your own king in check."
-          unmove
+        if @player_turn == 'black'
+          print_board
+          puts "\n\n"
+          puts "\n-----BLACK PLAYER-------"
           input = player_input('black')
           if input == 'exit'
             save_game
             return
           end
+          @player_turn = 'white'
           check('black')
-        end
-        check('white')
-        if @white_check
-          puts "White King in check!"
-          checkmate
-          if @white_checkmate
-            p "BLACK PLAYER WINS!!!!!!!!"
-            save_game
-            return
+          while @black_check
+            puts
+            puts "\nYou can't put your own king in check."
+            unmove
+            input = player_input('black')
+            if input == 'exit'
+              save_game
+              return
+            end
+            check('black')
+          end
+          check('white')
+          if @white_check
+            puts "White King in check!"
+            checkmate
+            if @white_checkmate
+              p "BLACK PLAYER WINS!!!!!!!!"
+              save_game
+              return
+            end
           end
         end
       end
